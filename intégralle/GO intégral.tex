@@ -1,11 +1,12 @@
 \documentclass[12pt, letterpaper]{article}
 \usepackage{graphicx}
 \usepackage{wrapfig}
-\usepackage{indentfirst}
-\usepackage[skip=10pt plus1pt, indent=40pt]{parskip}
+\usepackage{amsmath}
 
 
 \graphicspath{ {images/} }
+\setlength{\belowcaptionskip}{-20pt}
+
 
 
 \title{Comment calculer informatiquement une intégrale ?}
@@ -21,33 +22,54 @@
 
 \section{Introduction}
 \subsection{Qu'est-ce qu'une intégrale ?}
-
 Une intégrale correspond à l'air sous la courbe d'une fonction, c'est à dire, 
 l'espace entre la courbe et l'axe des abscisses.
-\par
+
+\begingroup
 \centering
 Une intégrale se rédige de la manière suivante : 
 \[ F(x)=\int_{a}^{b} x^2 \,dx \]
+
 où a et b sont les bornes de notre intégrale.
+
+\endgroup
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
     \includegraphics[width = 0.3\textwidth]{intégral.png}
     \caption{La courbe de $f(x)=-x^2 + 4x+5 $ }
+    \label{fig:graphic}
 \end{wrapfigure}
 
-\raggedright
-\linespread{100}
+\vspace{6mm}
+
+\par
 Dans le cas de la figure 1, l'intégral est :
 \[ F(x) = \int_{{-1}}^{5} -x^2+4x+5 \,dx \]	
-On pourrait traduire oralement cette expression par : "l'intégrale de -1 à 5 de \(-x^2 +4x+5\)"
 
+On pourrait traduire oralement cette expression par : "l'intégrale de -1 à 5 de \(-x^2 +4x+5\)".
+\vspace{3cm}
 
-\newpage
-\subsection{Pourquoi avoir besoin d'une intégrale en informatique ?}
-\section{Quels algorithmes ?}
-\subsection{Somme de Riemann}
+La dérivée d'une fonction mesure les variations de la fonction. On écrit la dérivé d'une fonction $f(x)$ comme $f'(x)$
+
+Une primitive correspond à obtenir une fonction \( F\) d’une fonction réelle $f$ où $F'(x)$ est la fonction $f(x)$ ainsi on obtient \( F'(x)=f(x)\) 
+
+Pour caluler une intégrale on utilise cette formule \[ \int_{a}^{b} f(x) \,dx = [F(x)]_{a}^{b} = F(b) - F(a)\]
+
+ainsi dans notre exemple de la figure 1 on a :
+\begin{equation} \label{eq:eq1}
+    \begin{split} 
+        \int_{-1}^{5} -x^2 + 4x+5 \,dx &= \biggr[-\frac{x^3}{3}+2x^2 + 5x\biggl]_{-1}^{5} \\
+        & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 - (-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)) \\
+        & = -\frac{125}{3}+50+25-(\frac{1}{3}+2-5) \\
+        & = -\frac{125}{3}+75+\frac{8}{3}  \\
+        & = \frac{117}{3} +75 \\
+        & =  36 \\
+    \end{split}
+\end{equation}
+\section{les algorithmes de calcul numérique d'intégral?}
 \subsection{Méthode de Monte-Carlo}
+
 \subsection{Méthode de Simpson}
 \listoffigures
 
