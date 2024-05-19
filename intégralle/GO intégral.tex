@@ -1,81 +1,154 @@
 \documentclass[12pt, letterpaper]{article}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{wrapfig}
-\usepackage{amsmath}
-
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage{indentfirst}
 
 \graphicspath{ {images/} }
-\setlength{\belowcaptionskip}{-20pt}
 
 
+\setlength{\intextsep}{-25pt} 
+\setlength{\parskip}{10pt}
+
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \title{Comment calculer informatiquement une intégrale ?}
 \author{Eliott Paquet}
-\date{mai 2024}
+\date{mai-juin 2024}
 \renewcommand*\contentsname{Sommaire}
 
 \begin{document}
 \maketitle
+\pagebreak
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
-\subsection{Qu'est-ce qu'une intégrale ?}
+\subsection{Les intégrales ?}
 
-Une intégrale correspond à l'air sous la courbe d'une fonction, c'est à dire, 
+\subsubsection{Qu'est-ce qu'une intégrale ?}
+
+Une intégrale correspond à l'air sous la courbe d'une fonction sur un interval I, c'est à dire, 
 l'espace entre la courbe et l'axe des abscisses.
 
 \begingroup
 \centering
 Une intégrale se rédige de la manière suivante : 
-\[ F(x)=\int_{a}^{b} x^2 \,dx \]
+\[ F(x)=\int_{a}^{b} f(x) \,dx \]
 
 où a et b sont les bornes de notre intégrale.
 
 \endgroup
-
-\begin{figure}[h]
+\begin{wrapfigure}{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{intégral.png}
-    \caption{La courbe de $f(x) = -x^2 + 4x + 5$ ainsi que l'air sous sa courbe entre ces racines}
-\end{figure}
+    \includegraphics[width=0.3\textwidth]{intégral.png}
+    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\)}
+    \label{fig:fonction et intégrale}
+\end{wrapfigure}
 
-\vspace{6mm}
 
 
-Dans le cas de la figure 1, l'intégral est :
-\[ F(x) = \int_{-1}^{5} -x^2+4x+5 \, dx \]
 
-On pourrait traduire oralement cette expression par : "L'intégrale de -1 à 5 de \(-x^2 +4x+5\)".
+
+
+\vspace{4mm}
+Dans le cas de la figure 1, l'intégrale est :
+\[ F(x) = \int_{-1}^{5} (-x^2 + 4x + 5) \, dx \]
+
+On pourrait traduire oralement cette expression par : "l'intégrale de moins un à cinq de \(-x^2 + 4x + 5\)".
+\vspace{1cm}
+
+La dérivée d'une fonction mesure les variations de la fonction. On écrit la dérivée d'une fonction \(f(x)\) comme \(f'(x)\).
+
+Une primitive correspond à obtenir une fonction \(F\) d’une fonction réelle \(f\) où \(F'(x)\) est la fonction \(f(x)\). Ainsi, on obtient \(F'(x) = f(x)\).
+
 \pagebreak
+\subsubsection{Comment calculer une intégrale ?}
 
-La dérivée d'une fonction mesure les variations de la fonction. On écrit la dérivé d'une fonction $f(x)$ comme $f'(x)$.
-
-Une primitive correspond à obtenir une fonction \( F\) d’une fonction réelle $f$ où $F'(x)$ est la fonction $f(x)$ ainsi on obtient \( F'(x)=f(x)\).
-
-Pour caluler une intégrale on utilise cette formule \[ \int_{a}^{b} f(x) \,dx = [F(x)]_{a}^{b} = F(b) - F(a)\]
+Pour calculer une intégrale on utilise cette formule \[ \int_{a}^{b} f(x) \,dx = [F(x)]_{a}^{b} = F(b) - F(a)\]
 
 ainsi dans notre exemple de la figure 1 on a :
 \begin{equation} \label{eq:eq1}
     \begin{split} 
-        \int_{-1}^{5} -x^2 + 4x+5 \,dx &= \biggr[-\frac{x^3}{3}+2x^2 + 5x\biggl]_{-1}^{5} \\
-        & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 - \biggr(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\biggr) \\
-        & = -\frac{125}{3}+50+25-(\frac{1}{3}+2-5) \\
+        \int_{-1}^{5} -x^2 + 4x+5 \,dx &= \left[-\frac{x^3}{3}+2x^2 + 5x\right]_{-1}^{5} \\
+        & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 - \left(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\right) \\
+        & = -\frac{125}{3}+50+25-\left(\frac{1}{3}+2-5\right) \\
         & = -\frac{125}{3}+75+\frac{8}{3}  \\
         & = \frac{117}{3} +75 \\
         & =  36 \\
     \end{split}
 \end{equation}
+
+\pagebreak
+
 \subsection{Pourquoi avoir besoin de calculer informatiquement une intégrale et quels problèmes cela pose ?}
 
-Que ce soit en physique , en ingénierie, en Économie et en Finance ou en Statistiques. Les intégrales sont présente dans notre quotidien. Ainsi il fallu un jour trouver le moyen de calculer , à l'aide d'un algorithme, des intégrales.
+Que ce soit en physique , en ingénierie, en Économie et en Finance ou en Statistiques. Les intégrales sont présentes dans notre quotidien. Ainsi il fallu un jour trouver le moyen de calculer , à l'aide d'un algorithme, des intégrales.
 
-Cependant, même si je n'ai pas expliqué comment trouver les primitives et les dérivées des fonctions, il faut savoir que les formules utilisées par l'homme ne sont peuvent pas facilement être mise en place dans un algorithme.
+Cependant un ordinateur n'as pas la même capacité de raisonnement que l'homme et la complexité des intégrales empêches les ordinateurs de calculer les intégrales avec les mêmes formules que les humains utilisent.
+
+C'est pourquoi, les mathématiciens et développeur on crées des méthodes et des algorithmes permettant de calculer les intégrales de manière automatisé.
+
+Aujourd'hui nous allons voire une partie de ces méthodes, je vais tout d’abord vous présenter des méthodes plus simples faisant appel à des forme géométrique comme le rectangle ou le trapèze, puis à des raisonnement plus poussé (qui obtiennent de meilleur résultat)
+
+Pour chacune des méthodes que nous allons voir, nous prendront comme exemple la fonction \( f(x) = -x^2 + 4x + 5\) et analyserons le résultat de notre calcul pour , à la fin , classer les méthodes.
 
 
-\section{les algorithmes de calcul numérique d'intégral?}
 
+\section{Quels algorithmes de calcul numérique d'intégrales ?}
+
+
+\subsection{Les méthodes faisant appel à des formes géométrique }
+
+\subsubsection{Méthode des rectangles ou la somme de Riemman}
+
+La méthode des rectangles consiste à approximer une intégrale en divisant la région sous une courbe en petits rectangles, en prenant des points sur la courbe pour déterminer la hauteur de chaque rectangle, puis en additionnant les aires de ces rectangles pour obtenir une estimation de l'intégrale, cette estimation est appelée somme de Riemann.
+
+Il existe plusieurs déclinaisons de la méthode des rectangles
+\begin{itemize}
+    \item méthode des rectangles à gauche où la hauteur est le point appartenant à la courbe le plus "a gauche"
+
+    \item méthode des rectangles à droite où la hauteur est le point appartenant à la courbe le plus "a droite"
+
+    \item méthode du point médian où la hauteur est le point appartenant à la courbe qui est au milieu du petit ensemble. C'est la variation qui possède généralement les meilleurs résultats.
+
+    \item somme de Riemann supérieure ou somme de Darboux supérieure où la hauteur est la plus hauteur valeur de f sur cette ensemble
+
+    \item somme de Riemann inférieure ou somme de Darboux inférieure où la hauteur est la plus petite valeur de f sur cette ensemble
+
+\end{itemize}
+
+\pagebreak
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \includegraphics[width=0.3\textwidth]{Calcul d'intégrale avec méthode des rectangles droit.PNG}
+    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la somme de riemman droite avec un pas de 1}
+    \label{fig:fonction et somme de Riemman droite}
+\end{wrapfigure}
+
+La somme de Riemann associée à \( f :[a;b]\) avec un pas de \(n\) est :
+
+\[ S_n(f) = \frac{b-a}{n} \sum_{k=1}^{n} f\left(a + k \frac{b-a}{n}\right) = \sum_{k=1}^{n} (x_k - x_{k-1}) f(x_k). \]
+
+ainsi on a :
+
+\[ \lim_{n \to +\infty} S_n(f) = \int_{a}^{b} f(t) \, \mathrm{d}t. \]
+
+
+Dans notre exemple , le pas est de \(1\) et l'intégral est défini sur \([-1;5]\) donc on a :
+
+\subsubsection{Méthode des trapèze}
+\subsection{Les Méthode plus compliqué}
 \subsection{Méthode de Monte-Carlo}
 
 
