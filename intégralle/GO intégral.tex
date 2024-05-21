@@ -20,7 +20,7 @@
 \titleformat{\subsubsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
 \titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
-\title{Comment calculer informatiquement une intégrale ?}
+\title{Quelle est la meilleur méthode pour calculer numériquement une intégrale ?}
 \author{Eliott Paquet}
 \date{mai-juin 2024}
 \renewcommand*\contentsname{Sommaire}
@@ -43,11 +43,12 @@ l'espace entre la courbe et l'axe des abscisses.
 \begingroup
 \centering
 Une intégrale se rédige de la manière suivante : 
-\[ F(x)=\int_{a}^{b} f(x) \,dx \]
+\[ I =\int_{a}^{b} f(x) \,dx \]
 
 où a et b sont les bornes de notre intégrale.
 
 \endgroup
+
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
     \includegraphics[width=0.3\textwidth]{intégral.png}
@@ -56,13 +57,9 @@ où a et b sont les bornes de notre intégrale.
 \end{wrapfigure}
 
 
-
-
-
-
 \vspace{4mm}
 Dans le cas de la figure 1, l'intégrale est :
-\[ F(x) = \int_{-1}^{5} (-x^2 + 4x + 5) \, dx \]
+\[ I = \int_{-1}^{5} (-x^2 + 4x + 5) \, dx \]
 
 On pourrait traduire oralement cette expression par : "l'intégrale de moins un à cinq de \(-x^2 + 4x + 5\)".
 \vspace{1cm}
@@ -92,6 +89,7 @@ ainsi dans notre exemple de la figure 1 on a :
 
 \subsection{Pourquoi avoir besoin de calculer informatiquement une intégrale et quels problèmes cela pose ?}
 
+%trouver un moyen de justifier l'utilisation des intégrales
 Que ce soit en physique , en ingénierie, en Économie et en Finance ou en Statistiques. Les intégrales sont présentes dans notre quotidien. Ainsi il fallu un jour trouver le moyen de calculer , à l'aide d'un algorithme, des intégrales.
 
 Cependant un ordinateur n'as pas la même capacité de raisonnement que l'homme et la complexité des intégrales empêches les ordinateurs de calculer les intégrales avec les mêmes formules que les humains utilisent.
@@ -110,44 +108,81 @@ Pour chacune des méthodes que nous allons voir, nous prendront comme exemple la
 \subsection{Les méthodes faisant appel à des formes géométrique }
 
 \subsubsection{Méthode des rectangles ou la somme de Riemman}
+On appelle subdivision de $[a;b]$ toute suite finie strictement croissante $\sigma = (x_0, x_1, \dots, x_n)$ d'éléments de $[a;b]$ telle que
+\[
+a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b.
+\]
 
-La méthode des rectangles consiste à approximer une intégrale en divisant la région sous une courbe en petits rectangles, en prenant des points sur la courbe pour déterminer la hauteur de chaque rectangle, puis en additionnant les aires de ces rectangles pour obtenir une estimation de l'intégrale, cette estimation est appelée somme de Riemann.
+Soit \( f : [a,b] \to \mathbb{R} \) une fonction définie en tout point du segment \([a, b]\). On se donne une subdivision marquée \(\sigma = (a = x_0 < x_1 < x_2 < \dots < x_n = b ; t_i \in [x_{i-1}, x_i] \text{ pour } i = 1, \dots, n)\). La somme de Riemann de \(f\) sur \([a, b]\) liée à \(\sigma\) est définie par :
 
-Il existe plusieurs déclinaisons de la méthode des rectangles
+\[ S(f,\sigma) = \sum_{i=1}^{n} (x_i - x_{i-1}) f(t_i). \]
+
+Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Riemann générale converge vers:
+\[ \int_{a}^{b} f(t) \, \mathrm{d}t. \]
+
 \begin{itemize}
-    \item méthode des rectangles à gauche où la hauteur est le point appartenant à la courbe le plus "a gauche"
+    \item Pour \( t_i = x_{i-1} \) pour tout \( i \), on parle de \textbf{méthode des rectangles à gauche}.
+    \[
+        \begin{aligned}
+            S_\text{gauche}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f(x_{i-1}) \\
+            &= 1 \times f(-1) + 1 \times f(0) + 1 \times f(1) + 1 \times f(2) + 1 \times f(3) + 1 \times f(4) \\
+            &= 35
+        \end{aligned}
+    \]
+    \item Pour \( t_i = x_i \) pour tout \( i \), on parle de \textbf{méthode des rectangles à droite}.
+    \[
+        \begin{aligned}
+            S_\text{droite}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f(x_i) \\
+            &= 1 \times f(0) + 1 \times f(1) + 1 \times f(2) + 1 \times f(3) + 1 \times f(4) + 1 \times f(5) \\
+            &= 35
+        \end{aligned}
+    \]
 
-    \item méthode des rectangles à droite où la hauteur est le point appartenant à la courbe le plus "a droite"
+    \item Pour \( t_i = \frac{1}{2}(x_{i-1} + x_i) \) pour tout \( i \), on parle de \textbf{méthode du point médian}.
 
-    \item méthode du point médian où la hauteur est le point appartenant à la courbe qui est au milieu du petit ensemble. C'est la variation qui possède généralement les meilleurs résultats.
-
-    \item somme de Riemann supérieure ou somme de Darboux supérieure où la hauteur est la plus hauteur valeur de f sur cette ensemble
-
-    \item somme de Riemann inférieure ou somme de Darboux inférieure où la hauteur est la plus petite valeur de f sur cette ensemble
-
+    
+    \[
+        \begin{aligned}
+            S_\text{médian}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f\left(\frac{x_{i-1} + x_i}{2}\right) \\
+            &= 1 \times f(-0.5) + 1 \times f(0.5) + 1 \times f(1.5) + 1 \times f(2.5) + 1 \times f(3.5) + 1 \times f(4.5) \\
+            &= 1 \times 2.75 + 1 \times 6.75 + 1 \times 8.75 + 1 \times 8.75 + 1 \times 6.75 + 1 \times 2.75 \\
+            &= 36.5
+        \end{aligned}
+    \]
+    \item Pour \( f(t_i) = \sup \{f(t) \mid t \in [x_{i-1}, x_i]\} \) pour tout \( i \), on parle de \textbf{somme de Riemann supérieure} ou \textbf{somme de Darboux supérieure}.
+    \[
+        \begin{aligned}
+            S_\text{sup}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) \sup \{f(t) \mid t \in [x_{i-1}, x_i]\} \\
+            &= 1 \times \max(f(-1), f(0)) + 1 \times \max(f(0), f(1)) + 1 \times \max(f(1), f(2)) \\
+            &\quad + 1 \times \max(f(2), f(3)) + 1 \times \max(f(3), f(4)) + 1 \times \max(f(4), f(5)) \\
+            &= 44
+        \end{aligned}
+    \]
+    \item Pour \( f(t_i) = \inf \{f(t) \mid t \in [x_{i-1}, x_i]\} \) pour tout \( i \), on parle de \textbf{somme de Riemann inférieure} ou \textbf{somme de Darboux inférieure}.
+    \[
+        \begin{aligned}
+            S_\text{inf}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) \inf \{f(t) \mid t \in [x_{i-1}, x_i]\} \\
+            &= 1 \times \min(f(-1), f(0)) + 1 \times \min(f(0), f(1)) + 1 \times \min(f(1), f(2)) \\
+            &\quad + 1 \times \min(f(2), f(3)) + 1 \times \min(f(3), f(4)) + 1 \times \min(f(4), f(5)) \\
+            &= 26
+        \end{aligned}
+    \]
 \end{itemize}
-
-\pagebreak
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.3\textwidth]{Calcul d'intégrale avec méthode des rectangles droit.PNG}
-    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la somme de riemman droite avec un pas de 1}
+    \includegraphics[width=0.3\textwidth]{méthode des intégrale millieux.PNG}
+    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la somme de Riemann milieux avec un pas de 1}
     \label{fig:fonction et somme de Riemman droite}
 \end{wrapfigure}
 
-La somme de Riemann associée à \( f :[a;b]\) avec un pas de \(n\) est :
+On constate que la méthode la plus optimale dans notre cas est celle du point médian dont la valeur est 
 
-\[ S_n(f) = \frac{b-a}{n} \sum_{k=1}^{n} f\left(a + k \frac{b-a}{n}\right) = \sum_{k=1}^{n} (x_k - x_{k-1}) f(x_k). \]
+\[S_\text{médian}(f, \sigma)  = 36.5 \simeq  \int_{-1}^{5} -x^2 + 4x+5 \,dx = 36\]
 
-ainsi on a :
-
-\[ \lim_{n \to +\infty} S_n(f) = \int_{a}^{b} f(t) \, \mathrm{d}t. \]
-
-
-Dans notre exemple , le pas est de \(1\) et l'intégral est défini sur \([-1;5]\) donc on a :
-
+Ce constat n'est pas étonnant , il a été prouvé que la méthode du point médian est la plus précise des sommes de Riemann.
 \subsubsection{Méthode des trapèze}
+
 \subsection{Les Méthode plus compliqué}
 \subsection{Méthode de Monte-Carlo}
 
