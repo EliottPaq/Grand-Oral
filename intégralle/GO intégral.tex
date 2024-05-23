@@ -1,16 +1,15 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{wrapfig}
 \usepackage{caption}
 \usepackage{setspace}
 \usepackage{titlesec}
 \usepackage{amssymb}    
 \usepackage{indentfirst}
 \usepackage{parskip}
-\usepackage{wrapfig}
+    \usepackage{wrapfig}
 \usepackage{float}
-\graphicspath{ {images/} }
+\graphicspath{ {ressource/} }
 
 
 \setlength{\intextsep}{-25pt} 
@@ -56,7 +55,7 @@ où a et b sont les bornes de notre intégrale.
 
 \begin{wrapfigure}[5]{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{intégral.png}
+    \includegraphics[width=0.28\textwidth]{intégral/intégral.png}
     \caption{La courbe de \(f(x) = -x^2 + 4x + 5\)}
     \label{fig:fonction et intégrale}
 \end{wrapfigure}
@@ -79,10 +78,11 @@ Une primitive correspond à obtenir une fonction \(F\) d’une fonction réelle 
 Pour calculer une intégrale on utilise cette formule \[ \int_{a}^{b} f(x) \,dx = [F(x)]_{a}^{b} = F(b) - F(a)\]
 
 ainsi dans notre exemple de la figure 1 on a :
-\begin{equation} \label{eq:eq1}
+\begin{equation} \label{eq:calcul intégrale}
     \begin{split} 
         \int_{-1}^{5} -x^2 + 4x+5 \,dx &= \left[-\frac{x^3}{3}+2x^2 + 5x\right]_{-1}^{5} \\
-        & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 - \left(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\right) \\
+        & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 \\
+        &\quad -\left(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\right) \\
         & = -\frac{125}{3}+50+25-\left(\frac{1}{3}+2-5\right) \\
         & = -\frac{125}{3}+75+\frac{8}{3}  \\
         & = \frac{117}{3} +75 \\
@@ -101,16 +101,17 @@ Cependant un ordinateur n'as pas la même capacité de raisonnement que l'homme 
 
 C'est pourquoi, les mathématiciens et développeur on crées des méthodes et des algorithmes permettant de calculer les intégrales de manière automatisé.
 
-Aujourd'hui nous allons voire une partie de ces méthodes, je vais tout d’abord vous présenter des méthodes plus simples faisant appel à des forme géométrique comme le rectangle ou le trapèze, puis à des raisonnement plus poussé (qui obtiennent de meilleur résultat)
+Aujourd'hui nous allons voire une partie de ces méthodes, je vais tout d’abord vous présenter des méthodes plus simples faisant appel à des forme \\
+géométrique comme le rectangle ou le trapèze, puis à des raisonnement plus poussé qui obtiennent de meilleur résultat.
 
 Pour chacune des méthodes que nous allons voir, nous prendront comme exemple la fonction \( f(x) = -x^2 + 4x + 5\) et analyserons le résultat de notre calcul pour , à la fin , classer les méthodes.
 
 \clearpage
 
-\section{Quels algorithmes de calcul numérique d'intégrales ?}
+\section{Quels algorithmes de calcul \\numérique d'intégrales ?}
 
 
-\subsection{Les méthodes faisant appel à des formes géométrique }
+\subsection{Les méthodes faisant appel à \\des formes géométrique }
 
 \subsubsection{Méthode des rectangles ou la somme de Riemman}
 On appelle subdivision de $[a;b]$ toute suite finie strictement croissante $\sigma = (x_0, x_1, \dots, x_n)$ d'éléments de $[a;b]$ telle que
@@ -131,17 +132,21 @@ Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Rieman
         \label{eq:gauche}
         \begin{split} 
             S_\text{gauche}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f(x_{i-1}) \\
-            &= 1 \times f(-1) + 1 \times f(0) + 1 \times f(1) + 1 \times f(2) + 1 \times f(3) + 1 \times f(4) \\
+            &= 1 \times f(-1) + 1 \times f(0) + 1 \times f(1) + 1 \times f(2) \\
+            &\quad + 1 \times f(3) + 1 \times f(4) \\
             &= 35
         \end{split}
     \end{equation}
-    
+
+    \clearpage
+
     \item Pour \( t_i = x_i \) pour tout \( i \), on parle de \textbf{méthode des rectangles à droite}.
     \begin{equation}
         \label{eq:droite}
         \begin{split} 
             S_\text{droite}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f(x_i) \\
-            &= 1 \times f(0) + 1 \times f(1) + 1 \times f(2) + 1 \times f(3) + 1 \times f(4) + 1 \times f(5) \\
+            &= 1 \times f(0) + 1 \times f(1) + 1 \times f(2) \\
+            &\quad +1 \times f(3) + 1 \times f(4) + 1 \times f(5) \\
             &= 35
         \end{split}
     \end{equation}
@@ -151,7 +156,8 @@ Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Rieman
         \label{eq:median}
         \begin{split} 
             S_\text{médian}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) f\left(\frac{x_{i-1} + x_i}{2}\right) \\
-            &= 1 \times f(-0.5) + 1 \times f(0.5) + 1 \times f(1.5) + 1 \times f(2.5) + 1 \times f(3.5) + 1 \times f(4.5) \\
+            &= 1 \times f(-0.5) + 1 \times f(0.5) + 1 \times f(1.5) \\
+            &\quad + 1 \times f(2.5) + 1 \times f(3.5) + 1 \times f(4.5) \\
             &= 36.5
         \end{split}
     \end{equation}
@@ -161,8 +167,9 @@ Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Rieman
         \label{eq:sup}
         \begin{split} 
             S_\text{sup}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) \sup \{f(t) \mid t \in [x_{i-1}, x_i]\} \\
-            &= 1 \times \max(f(-1), f(0)) + 1 \times \max(f(0), f(1)) + 1 \times \max(f(1), f(2)) \\
-            &\quad + 1 \times \max(f(2), f(3)) + 1 \times \max(f(3), f(4)) + 1 \times \max(f(4), f(5)) \\
+            &= 1 \times \max(f(-1), f(0)) + 1 \times \max(f(0), f(1)) \\
+            &\quad+ 1 \times \max(f(1), f(2)) + 1 \times \max(f(2), f(3)) \\
+            &\quad+ 1 \times \max(f(3), f(4)) + 1 \times \max(f(4), f(5)) \\
             &= 44
         \end{split}
     \end{equation}
@@ -172,8 +179,9 @@ Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Rieman
         \label{eq:inf}
         \begin{split} 
             S_\text{inf}(f, \sigma) &= \sum_{i=1}^{n} (x_i - x_{i-1}) \inf \{f(t) \mid t \in [x_{i-1}, x_i]\} \\
-            &= 1 \times \min(f(-1), f(0)) + 1 \times \min(f(0), f(1)) + 1 \times \min(f(1), f(2)) \\
-            &\quad + 1 \times \min(f(2), f(3)) + 1 \times \min(f(3), f(4)) + 1 \times \min(f(4), f(5)) \\
+            &= 1 \times \min(f(-1), f(0)) + 1 \times \min(f(0), f(1)) \\
+            &\quad+ 1 \times \min(f(1), f(2)) + 1 \times \min(f(2), f(3))\\
+            &\quad+ 1 \times \min(f(3), f(4)) + 1 \times \min(f(4), f(5)) \\
             &= 26
         \end{split}
     \end{equation}
@@ -181,7 +189,7 @@ Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Rieman
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{méthode des intégrale millieux.PNG}
+    \includegraphics[width=0.28\textwidth]{somme de rieman/méthode des intégrale millieux.PNG}
     \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la somme de Riemann milieux avec un pas de 1}
     \label{fig:fonction et somme de Riemman milleux}
 \end{wrapfigure}
@@ -202,9 +210,11 @@ Pour rappel, la formule de calcul de l'aire d'un trapèze est : \(\frac{(B+b)h}{
 
 \begin{wrapfigure}[5]{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{Calcul d'intégrale avec méthode des trapèzes.PNG}
+    \centering
+    \includegraphics[width=0.28\textwidth]{somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG}
     \label{fig:fonction et méthode des trapèzes}
-    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la méthode des trapèzes de 1}
+    \caption{ 
+    La courbe de \\\(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la méthode \\des trapèzes de 1}
 \end{wrapfigure}
 
 Reprenons notre subdivision \(\sigma\) alors :
@@ -221,14 +231,14 @@ Reprenons notre subdivision \(\sigma\) alors :
     \end{split}
 \end{equation}
 
-Le résultat de cette méthode est correct même si la somme de Riemann par millieux reste plus performante , ce constat est lui aussi démontrable avec des outils de sup %ptet pas le formuler comme ça 
+Le résultat de cette méthode est correct même si la somme de Riemann par milieu reste plus performante , ce constat est lui aussi démontrable avec des outils de sup %ptet pas le formuler comme ça 
 \clearpage
 
 \subsection{Les Méthode plus compliqué}
 \subsubsection{Méthode de Monte-Carlo}
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.25\textwidth]{calcul d'intégrale avec la méthode de monte-carlo.PNG}
+    \includegraphics[width=0.28\textwidth]{monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG}
     \label{fig:fonction et méthode de monte carlo}
     \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que des points choisit uniformément avec une distance entre chaque point de 0.5}
 \end{wrapfigure}
