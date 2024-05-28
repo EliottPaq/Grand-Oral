@@ -1,0 +1,35 @@
+import math
+
+def f(x)->int :
+    """
+    f(x)=-x^2 +4x +5 
+    Args:
+        x : le nombre x
+
+    Returns:
+        int: f(x)
+    """
+    return -(x * x) + (4*x) + 5
+
+def sum_riemann(borne:list,longueur_des_rectangle:float,start:float):
+    """    
+    utilise la somme de Riemann pour connaître l’intégrale d'une fonction
+    Args:
+        borne (array): la borne de définition de l'intégrale
+        longueur_des_rectangle (float): la taille des rectangles
+        start (float): le pas qu'on ajoute à chaque rectangle
+    """
+    sum=0
+    a = borne[0]
+    b = borne[1]
+    intervalle= b-a
+    number_of_rectangle = round(intervalle/longueur_des_rectangle)
+    print(number_of_rectangle)
+    for i in range(number_of_rectangle):
+        int = f(i*longueur_des_rectangle+longueur_des_rectangle*start+a)
+        sum += int
+    print("sum = "+str(((intervalle)/number_of_rectangle)*sum))
+    
+print(sum_riemann([-1,5],0.00000001,0.5))
+#sum = 36.000000000021174
+#average = 6.000000000003529

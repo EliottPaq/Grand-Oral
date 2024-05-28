@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.29)  24 MAY 2024 00:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.29)  28 MAY 2024 22:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -244,15 +244,35 @@ Package pdftex.def Info: ressource/intégral/intégral.png  used on input line 5
 (pdftex.def)             Requested size: 109.19952pt x 97.04066pt.
  [3 <./ressource/intégral/intégral.png>] [4
 
-] [5
+]
+Overfull \hbox (2.44592pt too wide) in paragraph at lines 102--103
+[]\OT1/cmr/m/n/12 C'est pourquoi, les math^^Sematiciens et les in-for-mati-ciens on cr^^Se^^Ses des m^^Sethodes
+ []
 
-] [6
+
+Overfull \hbox (16.41522pt too wide) in paragraph at lines 104--105
+\OT1/cmr/m/n/12 vous pr^^Sesenter des m^^Sethodes plus sim-ples faisant ap-pel ^^Ra des formes g^^Seom^^Setriques
+ []
+
+[5
+
+]
+Overfull \hbox (7.9918pt too wide) in paragraph at lines 110--110
+|[]\OT1/cmr/bx/n/17.28 Quels sont les m^^Sethodes de cal-cul num^^Serique
+ []
+
+
+Overfull \hbox (12.24132pt too wide) in paragraph at lines 113--113
+|[]\OT1/cmr/bx/n/14.4 Les m^^Sethodes faisant ap-pel ^^Ra des formes g^^Seom^^Setrique
+ []
+
+[6
 
 {c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 <ressource/somme de rieman/méthode des intégrale millieux.PNG, id=36, 400.49625pt x 405.01312pt>
 File: ressource/somme de rieman/méthode des intégrale millieux.PNG Graphic file (type png)
 <use ressource/somme de rieman/méthode des intégrale millieux.PNG>
-Package pdftex.def Info: ressource/somme de rieman/méthode des intégrale millieux.PNG  used on input line 192.
+Package pdftex.def Info: ressource/somme de rieman/méthode des intégrale millieux.PNG  used on input line 193.
 (pdftex.def)             Requested size: 109.19952pt x 110.43031pt.
  [7
 
@@ -260,7 +280,7 @@ Package pdftex.def Info: ressource/somme de rieman/méthode des intégrale milli
 <ressource/somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG, id=45, 447.92343pt x 592.46344pt>
 File: ressource/somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG Graphic file (type png)
 <use ressource/somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG>
-Package pdftex.def Info: ressource/somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG  used on input line 214.
+Package pdftex.def Info: ressource/somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG  used on input line 215.
 (pdftex.def)             Requested size: 109.19952pt x 144.43611pt.
  [9
 
@@ -268,43 +288,55 @@ Package pdftex.def Info: ressource/somme des trapèze/Calcul d'intégrale avec m
 <ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG, id=50, 393.72093pt x 402.75468pt>
 File: ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG Graphic file (type png)
 <use ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG>
-Package pdftex.def Info: ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG  used on input line 241.
+Package pdftex.def Info: ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG  used on input line 242.
 (pdftex.def)             Requested size: 109.19952pt x 111.70122pt.
 
-Underfull \hbox (badness 2698) in paragraph at lines 243--243
+Underfull \hbox (badness 2698) in paragraph at lines 244--244
 \OT1/cmr/m/it/12 ainsi que des points
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--243
+Underfull \hbox (badness 10000) in paragraph at lines 244--244
 \OT1/cmr/m/it/12 choisit uni-form^^Sement
  []
 
-(./GO intégral.lof)
+[10
+
+ <./ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG>]
+Overfull \hbox (60.3495pt too wide) detected at line 278
+[]
+ []
+
+
+Overfull \hbox (68.7527pt too wide) detected at line 295
+[][] \OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) d\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^Y [][] \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) d\OML/cmm/m/it/12 x \OT1/cmr/m/n/12 = [] [] = 1(4 \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/12 9) = 36
+ []
+
+[11
+
+] (./GO intégral.lof)
 \tf@lof=\write4
 \openout4 = `"GO intégral.lof"'.
 
- [10
-
- <./ressource/monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG>] (./GO intégral.aux)
+ [12] (./GO intégral.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5195 strings out of 474103
- 84345 string characters out of 5747481
+ 5198 strings out of 474103
+ 84382 string characters out of 5747481
  1941496 words of memory out of 5000000
- 27516 multiletter control sequences out of 15000+600000
+ 27519 multiletter control sequences out of 15000+600000
  567516 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,18n,65p,1238b,324s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,18n,65p,1238b,326s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on "GO intégral.pdf" (10 pages, 236219 bytes).
+Output written on "GO intégral.pdf" (12 pages, 242320 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 118 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
