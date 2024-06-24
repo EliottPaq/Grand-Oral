@@ -7,8 +7,15 @@
 \usepackage{amssymb}    
 \usepackage{indentfirst}
 \usepackage{parskip}
-    \usepackage{wrapfig}
+\usepackage{wrapfig}
 \usepackage{float}
+\usepackage{tocloft}
+
+\newcommand{\listequationsname}{Liste des equation à retenir}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+
 \graphicspath{ {ressource/} }
 
 
@@ -25,7 +32,7 @@
 
 \title{Quelle est la meilleur méthode pour calculer numériquement une intégrale ?}
 \author{Eliott Paquet}
-\date{mai-juin 2024}
+\date{2024}
 \renewcommand*\contentsname{Sommaire}
 
 
@@ -41,13 +48,16 @@
 
 \subsubsection{Qu'est-ce qu'une intégrale ?}
 
-Une intégrale correspond à l'air sous la courbe d'une fonction sur un interval I, c'est à dire, 
+Une intégrale correspond à l'air sous la courbe d'une fonction sur un intervalle I, c'est à dire, 
 l'espace entre la courbe et l'axe des abscisses.
+
+Pour l’entièreté de mon oral je vais utiliser la fonction \(f(x) = -x^2 + 4x + 5\) comme référence et ainsi efficacement comparer l'efficacité des différentes méthodes.
 
 \begingroup
 \centering
 Une intégrale se rédige de la manière suivante : 
 \[ I =\int_{a}^{b} f(x) \,\mathrm{d} x \]
+
 
 où a et b sont les bornes de notre intégrale.
 
@@ -55,14 +65,14 @@ où a et b sont les bornes de notre intégrale.
 
 \begin{wrapfigure}[5]{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{intégral/intégral.png}
+    \includegraphics[width=0.28\textwidth]{intégrale/intégrale.png}
     \caption{La courbe de \(f(x) = -x^2 + 4x + 5\)}
     \label{fig:fonction et intégrale}
 \end{wrapfigure}
 
 
 \vspace{4mm}
-Dans le cas de la figure 1, l'intégrale est :
+Avec \(f\) nous obtenons la formule:
 \[ I = \int_{-1}^{5} (-x^2 + 4x + 5) \, \mathrm{d}x \]
 
 On pourrait traduire oralement cette expression par : "l'intégrale de moins un à cinq de \(-x^2 + 4x + 5\)".
@@ -82,17 +92,19 @@ ainsi dans notre exemple de la figure 1 on a :
     \begin{split} 
         \int_{-1}^{5} -x^2 + 4x+5 \,\mathrm{d}x &= \left[-\frac{x^3}{3}+2x^2 + 5x\right]_{-1}^{5} \\
         & = -\frac{(5)^3}{3}+2(5)^2 + 5\times5 \\
-        &\quad -\left(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\right) \\
+        & = -\left(-\frac{(-1)^3}{3}+2(-1)^2 + 5(-1)\right) \\
         & = -\frac{125}{3}+50+25-\left(\frac{1}{3}+2-5\right) \\
         & = -\frac{125}{3}+75+\frac{8}{3}  \\
         & = \frac{117}{3} +75 \\
         & =  36 \\
     \end{split}
 \end{equation}
+\myequations{Calcul d'intégrale classique}
+
 
 \clearpage
 
-\subsection{Pourquoi avoir besoin de calculer informatiquement une intégrale et quels problèmes cela pose ?}
+\subsection{Pourquoi avoir besoin de calculer informatiquement une intégrale ?\\ Quels problèmes cela pose ?}
 
 %trouver un moyen de justifier l'utilisation des intégrales
 Que ce soit en physique , en ingénierie, en Économie et en Finance ou en Statistiques. Les intégrales sont présentes dans notre quotidien. Ainsi il fallu un jour trouver le moyen de calculer , à l'aide d'un algorithme, des intégrales.
@@ -102,8 +114,6 @@ Cependant un ordinateur n'as pas la même capacité de raisonnement que l'homme 
 C'est pourquoi, les mathématiciens et les informaticiens on créés des méthodes permettant de calculer les intégrales de manière automatisé.
 
 Aujourd'hui nous allons voire une partie de ces méthodes, je vais tout d’abord vous présenter des méthodes plus simples faisant appel à des formes géométriques comme le rectangle ou le trapèze, puis à des méthodes plus poussé mais tout aussi efficace.
-
-Pour chacune des méthodes que nous allons voir, nous prendront comme exemple la fonction \( f(x) = -x^2 + 4x + 5\) et analyserons le résultat de notre calcul pour , à la fin comparer ces méthodes.
 
 \clearpage
 
@@ -121,6 +131,8 @@ a = x_0 < x_1 < \cdots < x_{n-1} < x_n = b.
 Soit \( f : [a,b] \to \mathbb{R} \) une fonction définie en tout point du segment \([a, b]\). On se donne une subdivision marquée \(\sigma = (a = x_0 < x_1 < x_2 < \dots < x_n = b ; t_i \in [x_{i-1}, x_i] \text{ pour } i = 1, \dots, n)\). La somme de Riemann de \(f\) sur \([a, b]\) liée à \(\sigma\) est définie par :
 
 \[ S(f,\sigma) = \sum_{i=1}^{n} (x_i - x_{i-1}) f(t_i). \]
+\myequations{formule de la somme de Riemann}
+
 
 Si le pas de la subdivision \(\sigma\) tend vers zéro, alors la somme de Riemann générale converge vers:
 \[ \int_{a}^{b} f(t) \, \mathrm{d}t. \]
@@ -138,6 +150,7 @@ Nous posons \(\sigma = \left(-1 = -1 < 0 < 1 < 2 < 3 < 4 < 5 = 5\right)\). Le "p
             &= 35
         \end{split}
     \end{equation}
+    \myequations{Méthode des rectangles à gauche}
 
     \clearpage
 
@@ -151,6 +164,8 @@ Nous posons \(\sigma = \left(-1 = -1 < 0 < 1 < 2 < 3 < 4 < 5 = 5\right)\). Le "p
             &= 35
         \end{split}
     \end{equation}
+    \myequations{Méthode des rectangles à droite}
+
 
     \item Pour \( t_i = \frac{1}{2}(x_{i-1} + x_i) \) pour tout \( i \), on parle de \textbf{méthode du point médian}.
     \begin{equation}
@@ -162,6 +177,8 @@ Nous posons \(\sigma = \left(-1 = -1 < 0 < 1 < 2 < 3 < 4 < 5 = 5\right)\). Le "p
             &= 36.5
         \end{split}
     \end{equation}
+    \myequations{Méthode du point médian}
+
 
     \item Pour \( f(t_i) = \sup \{f(t) \mid t \in [x_{i-1}, x_i]\} \) pour tout \( i \), on parle de \textbf{somme de Riemann supérieure} ou \textbf{somme de Darboux supérieure}.
     \begin{equation}
@@ -174,6 +191,8 @@ Nous posons \(\sigma = \left(-1 = -1 < 0 < 1 < 2 < 3 < 4 < 5 = 5\right)\). Le "p
             &= 44
         \end{split}
     \end{equation}
+    \myequations{Somme de Riemann supérieure }
+
 
     \item Pour \( f(t_i) = \inf \{f(t) \mid t \in [x_{i-1}, x_i]\} \) pour tout \( i \), on parle de \textbf{somme de Riemann inférieure} ou \textbf{somme de Darboux inférieure}.
     \begin{equation}
@@ -186,12 +205,14 @@ Nous posons \(\sigma = \left(-1 = -1 < 0 < 1 < 2 < 3 < 4 < 5 = 5\right)\). Le "p
             &= 26
         \end{split}
     \end{equation}
+    \myequations{Somme de Riemann inférieure }
+
 \end{itemize}
 
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
     \includegraphics[width=0.28\textwidth]{somme de rieman/méthode des intégrale millieux.PNG}
-    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la somme de Riemann milieux avec un pas de 1}
+    \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que son intégrale via la somme de Riemann milieux avec un pas de 1}
     \label{fig:fonction et somme de Riemman milleux}
 \end{wrapfigure}
 
@@ -201,8 +222,6 @@ On constate que la méthode la plus optimale dans notre cas est celle du point m
 
 Ce constat n'est pas étonnant, il a été prouvé que la méthode du point médian est la plus précise des sommes de Riemann.
 
-\clearpage
-
 \subsubsection{Méthode des trapèzes}
 
 
@@ -211,11 +230,10 @@ Pour rappel, la formule de calcul de l'aire d'un trapèze est : \(\frac{(B+b)h}{
 
 \begin{wrapfigure}[5]{r}{0.3\textwidth}
     \centering
-    \centering
     \includegraphics[width=0.28\textwidth]{somme des trapèze/Calcul d'intégrale avec méthode des trapèzes.PNG}
     \label{fig:fonction et méthode des trapèzes}
     \caption{ 
-    La courbe de \\\(f(x) = -x^2 + 4x + 5\) ainsi que son intégral via la méthode \\des trapèzes de 1}
+    La courbe de \\\(f(x) = -x^2 + 4x + 5\) ainsi que son intégrale via la méthode \\des trapèzes de 1}
 \end{wrapfigure}
 
 Reprenons notre subdivision \(\sigma\) alors :
@@ -231,56 +249,66 @@ Reprenons notre subdivision \(\sigma\) alors :
         & = \frac{70}{2} = 35
     \end{split}
 \end{equation}
+\myequations{Méthode des trapèze}
 
-Le résultat de cette méthode est correct même si la somme de Riemann par milieu reste plus performante , ce constat est lui aussi démontrable avec des outils de sup %ptet pas le formuler comme ça 
+
+Le résultat de cette méthode est correct même si la somme de Riemann par milieu reste plus performante , ce constat est lui aussi démontrable avec des outils que je ne maîtrise pas.
 \clearpage
 
-\subsection{Les Méthode plus compliqué}
+\subsection{Les Méthodes plus compliqué}
 \subsubsection{Méthode de Monte-Carlo}
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{monte-carlo/calcul d'intégrale avec la méthode de monte-carlo.PNG}
-    \label{fig:fonction et méthode de monte carlo}
+    \includegraphics[width=0.28\textwidth]{Monte-Carlo/calcul d'intégrale avec la méthode de Monte-Carlo.PNG}
+    \label{fig:fonction et méthode de monte Carlo}
     \caption{La courbe de \(f(x) = -x^2 + 4x + 5\) ainsi que des points choisit uniformément avec une distance entre chaque point de 0.5}
 \end{wrapfigure}
 
-La méthode de monte-carlo repose sur des probabilités. 
+La méthode de Monte-Carlo repose sur les probabilités. 
 L'estimation de l'intégrale \( I \) de \( f \) est fournie par :
 \[
 \int_{a}^{b} f(x) \approx I_{\sigma'}(f) = \frac{(b-a)}{k} \sum_{i=1}^k f(x_i)
 \]
+\myequations{Methode de Monte-Carlo}
+
 où \( \sigma' = (a \leq x_0 \leq  x_1 \leq x_2 \leq \dots \leq x_n \leq b ; x_i \text{ pour } i = 1, \dots, k) \) .
 
-Cette méthode consiste à prendre \(k\) nombres \(x\) de manière aléatoire mais appartenant à \([a;b]\) puis de faire la moyenne des \(f(x_k)\) et enfin multiplier celle ci par \(b-a\) càd la taille du segment \([a;b]\).
+Cette méthode consiste à prendre \(k\) nombres \(x\) de manière aléatoire mais appartenant à \([a;b]\) puis de faire la moyenne des \(f(x_k)\) et enfin multiplier celle ci par \(b-a\) cet à dire la taille du segment \([a;b]\).
 
-Cette méthode nécessite un grand jeux de donné pour être effective. Ce qui en fait une méthode des méthodes les moins rentables pour son coût en ressource.
+Cette méthode nécessite un grand jeux de donné pour être effective. Ce qui en fait une des méthodes les moins rentables et moins précise pour son coût en ressource.
 
 
 
 \subsubsection{Méthode de Simpson}
 
-Cette méthode utilise l'approximation de \( f \) par un polynôme de degré 2 \( P \) prenant les mêmes valeurs que \( f \) aux points d'abscisse \( a \), \( b \) et \( m = \frac{a + b}{2} \). Pour déterminer l'expression de cette parabole (polynôme de degré 2), on utilise l'interpolation lagrangienne dont je ne connais que cette application . Le résultat peut être mis sous la forme :
+Cette méthode utilise l'approximation de \( f \) par un polynôme de degré 2 \(\left(f(x) = ax^2 +bx+c \space; a,b,c\in\mathbb{R}^3 \right)\) prenant les mêmes valeurs que \( f \) aux points d'abscisse \( a \), \( b \) et \( m = \frac{a + b}{2} \). Pour déterminer l'expression de cette parabole (polynôme de degré 2), on utilise l'interpolation de lagrange dont je ne connais que cette application. Le résultat peut être mis sous la forme :
 
 \[
 P(x) = f(a) \frac{(x-m)(x-b)}{(a-m)(a-b)} + f(m) \frac{(x-a)(x-b)}{(m-a)(m-b)} + f(b) \frac{(x-a)(x-m)}{(b-a)(b-m)}
 \]
+\myequations{Interpolation de Lagrange}
+
 \clearpage
-Avec \(f(x)=-x^2+4x+5 \) ,l'interval \([-1;5]\) et \(m = \frac{-1+5}{2} = 2\), on obtient ainsi le polynôme :
+Avec \(f(x)=-x^2+4x+5 \) ,l'intervalle \([-1;5]\) et \(m = \frac{-1+5}{2} = 2\), on obtient ainsi le polynôme :
 
 \begin{equation}
     \label{eq:polynome simpson}
     \begin{split}
-        P_f(x) &= f(-1) \frac{(x-2)(x-5)}{((-1)-2)((-1)-5)} + f(m) \frac{(x-(-1))(x-5)}{(2-(-1))(2-5)} + f(b) \frac{(x-(-1))(x-2)}{(5-(-1))(5-2)} \\
+        P_f(x) &= f(-1) \frac{(x-2)(x-5)}{((-1)-2)((-1)-5)} + f(2) \frac{(x-(-1))(x-5)}{(2-(-1))(2-5)} + f(5) \frac{(x-(-1))(x-2)}{(5-(-1))(5-2)} \\
         \quad& = 0 \times \frac{x^2-5x-2x+10}{(-3)(-6)} + 9\times \frac{x^2-5x+x-5}{3\times(-3)} + 0\times\frac{x^2+x-2x-2}{(5-(-1))(5-2)} \\
         \quad& = 9 \times \frac{x^2-4x-5}{-9}\\
         \quad& = -x^2+4x+5
     \end{split}
 \end{equation}
+\myequations{méthode de simpson sur le calcul du polynôme}
 
-Notre polynôme d'exemple étant un polynôme du second degré, il n'est pas étonnant de retomber sur le même polynôme car l'on fais notre interpolation de lagrange sur n+1 point avec un polynôme de degré n, on retrouve exactement ce polynôme.
+
+Notre polynôme d'exemple étant un polynôme du second degré, il n'est pas étonnant de retomber sur le même polynôme car quand l'on fais notre interpolation de lagrange sur n+1 point avec un polynôme de degré n, on retrouve exactement ce polynôme.
 
 Cependant avec d'autre polynôme comme \(h(x) = x^4-7x+5\) nous obtenons sur l'intervalle \([-12;6]\) et \(m' = \frac{-12+6}{2} = -3\) : 
-\[T(x) =20825 \frac{x^2 - 3x - 18}{162} + 107 \frac{x^2 + 6x - 72}{-81} + 1259 \frac{x^2 + 15x + 36}{162}\]
+\[t(x) =20825 \frac{x^2 - 3x - 18}{162} + 107 \frac{x^2 + 6x - 72}{-81} + 1259 \frac{x^2 + 15x + 36}{162}\]
+\myequations{Interpolation de lagrange sur polynôme compliqué}
+
 
 
 Un polynôme étant une fonction très facile à intégrer, on approche l'intégrale de la fonction \( f \) sur l'intervalle \([a, b]\), par l'intégrale de \( P \) sur ce même intervalle. On a ainsi la simple formule :
@@ -288,6 +316,8 @@ Un polynôme étant une fonction très facile à intégrer, on approche l'intég
 \[
 \int_{a}^{b} f(x) \, \mathrm{d} x \approx \int_{a}^{b} P(x) \, \mathrm{d} x = \frac{b-a}{6} \left[ f(a) + 4 f \left( \frac{a+b}{2} \right) + f(b) \right]
 \]
+\myequations{formule de calcul d'intégrale via simpson}
+
 
 En reprenant notre fonction P(x) nous obtenons ainsi
 \[
@@ -295,15 +325,17 @@ En reprenant notre fonction P(x) nous obtenons ainsi
 \]
 
 Cependant, nous tombons sur le même résultat uniquement car \(f(x) = P(x)\).
-En reprenant \(h(x)\) et \(T(x)\), on voit la différence car \(\displaystyle\int_{-12}^{6} h(x) \, \mathrm{d} x = 85431.6\) alors que  \(\displaystyle\int_{-12}^{6} T(x) \, \mathrm{d} x = 101178 \) on voit bien la différence sur cet exemple.
+En reprenant \(h(x)\) et \(t(x)\), on voit la différence car \(\displaystyle\int_{-12}^{6} h(x) \, \mathrm{d} x = 85431.6\) alors que  \(\displaystyle\int_{-12}^{6} T(x) \, \mathrm{d} x = 101178 \) on voit bien la différence sur cet exemple.
 
 \section{Conclusion}
-La méthode de monte-carlo est très aléatoire et est très coûteuse pour être précise cela en fait donc une très mauvaise candidate.
+La méthode de Monte-Carlo est très aléatoire et très coûteuse pour être précise cela en fait donc une très mauvaise candidate.
 
-Pour les autres méthodes , il est très compliqué de trouver de meilleur méthode car cela dépend des fonction que l'on utilise, cependant pour la méthode des trapèze et la somme de rieman(millieux) reste très précise et pourrait faire de bonne candidate.
+Pour les autres méthodes , il est très compliqué de trouver de meilleur méthode car cela dépend des fonction que l'on utilise, cependant pour la méthode des trapèze et la somme de riemann(milieux) reste très précise et pourrait faire de bonne candidate.
 
 Pour finir, il existe de très nombreuse méthode pour calculer numériquement les intégrales. Celle qui sont évoqué ne représentent qu'un échantillon de l'ensemble des méthodes qui existe.
 
 \listoffigures
+\listofmyequations
+
 
 \end{document}

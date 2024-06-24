@@ -1,0 +1,142 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{amssymb}    
+\usepackage{indentfirst}
+\usepackage{parskip}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{float}
+\restylefloat{table}
+
+\graphicspath{{ressource/}}
+
+\setlength{\intextsep}{-25pt} 
+\setlength{\parskip}{10pt}
+
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\titleformat{\subsubsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{Pourquoi les ordinateurs quantiques menacent la sécurité de nos protocoles de chiffrement ?}
+\author{Eliott Paquet}
+\date{mai-juin 2024}
+\renewcommand*\contentsname{Sommaire}
+\renewcommand*\listfigurename{Liste des figures}
+
+\begin{document}
+\maketitle
+\clearpage
+
+\tableofcontents
+\newpage
+
+
+\section{Comment sont protégées nos données ?}
+La cryptographie est la science de la sécurisation des communications en présence d'adversaires. Elle a une longue histoire, remontant à l'Antiquité avec des techniques comme le chiffrement de César, utilisé par Jules César pour protéger des messages militaires, ou encore la machine enigma qui servait à cracker le chiffrement utilisé par les allemands.
+
+Aujourd'hui, la sécurité de vos données bancaires, des communications militaires ou même des transactions en bitcoin repose sur des problèmes mathématiques complexes. Ces problèmes sont si difficiles qu'un supercalculateur mettrait des milliards d'années à les résoudre.
+
+
+Actuellement, ces informations sont protégées par des systèmes de chiffrement comme RSA mais avec l'arrivée des ordinateur quantique on pourrait casser ces systèmes de chiffrement, heureusement les chercheurs du monde entier travaille activement dans la création d'algorithme qui résisteront à l'arriver de l'ordinateur quantique.
+
+\section{Qu'est-ce que le système RSA ?}
+
+\subsection{Son fonctionnement très grossièrement}
+Le système RSA, créé par Ronald Rivest, Adi Shamir et Leonard Adleman en 1978, est l'un des plus utilisés.
+
+Voici un exemple concret :
+
+- \textit{Alice} veut recevoir des messages confidentiels.
+
+- Elle crée deux clés : une clé publique et une clé privée.
+
+- Elle partage la clé publique avec tout le monde, mais garde la clé privée secrète.
+
+- \textit{Bob} veut envoyer un message à Alice. Il utilise la clé publique d'Alice pour chiffrer le message.
+
+- Seule Alice, avec sa clé privée, peut déchiffrer le message de Bob.
+
+- n'importe qui chercherais à déchiffrer le message envoyer par bob à alice ne pourrait pas le comprendre 
+
+\subsection{Création des clés publique et privée}
+Le chiffrement RSA repose sur des principes mathématiques liés à la théorie des nombres. Voici les étapes pour créer les clés publique et privée :
+
+1. \textit{Choix de deux nombres premiers} : Alice choisit deux grands nombres premiers \(p\) et \(q\). Par exemple, \(p = 61\) et \(q = 53\).
+
+2. \textit{Calcul de \(n\)} : Alice calcule \(n\) en multipliant \(p\) et \(q\) :
+\[ n = p \times q = 61 \times 53 = 3233 \]
+Le nombre \(n\) fait partie de la clé publique.
+
+3. \textit{Calcul de \(\phi(n)\)} : Alice calcule la fonction d'Euler \(\phi(n)\), où \(\phi(n)\) est le nombre d'entiers positifs inférieurs à \(n\) et premiers avec \(n\). Pour les nombres premiers \(p\) et \(q\), \(\phi(n)\) se calcule comme suit :
+\[ \phi(n) = (p-1) \times (q-1) = 60 \times 52 = 3120 \]
+
+4. \textit{Choix de \(e\)} : Alice choisit un entier \(e\) tel que \(1 < e < \phi(n)\) et \(e\) est premier avec \(\phi(n)\). Disons qu'elle choisit \(e = 17\). Ce \(e\) fait aussi partie de la clé publique.
+
+5. \textit{Calcul de \(d\)} : Alice calcule \(d\), l'inverse modulaire de \(e\) modulo \(\phi(n)\), ce qui signifie :
+\[ e \times d \equiv 1 \ (\text{mod} \ \phi(n)) \]
+Pour notre exemple, cela donne :
+\[ 17 \times d \equiv 1 \ (\text{mod} \ 3120) \]
+En résolvant, nous obtenons \(d = 2753\). Le \(d\) fait partie de la clé privée.
+
+Résumé des clés :
+- La clé publique est le couple \((n, e) = (3233, 17)\).
+- La clé privée est le couple \((n, d) = (3233, 2753)\).
+
+\subsection{Comment Bob chiffre un message et comment Alice le déchiffre}
+Pour illustrer le processus de chiffrement et de déchiffrement RSA, voici comment cela fonctionne étape par étape :
+
+1. \textit{Chiffrement par Bob} :
+   
+- Bob convertit son message en une série de nombres. 
+   
+   - Bob utilise la clé publique d'Alice pour chiffrer chaque nombre. La formule de chiffrement RSA est :
+   \[ c = m^e \mod n \]
+   
+2. \textit{Déchiffrement par Alice} :
+   
+- Alice reçoit le message chiffré de Bob.
+   
+   - Elle utilise sa clé privée pour déchiffrer chaque nombre. La formule de déchiffrement RSA est :
+   \[ m = c^d \mod n \]
+
+
+On voit que l'une des failles de RSA serais de retrouver les deux nombre premier choisit au départ. En effet, avec ces deux nombre on pourrait trouver \(\phi(n)\) et ainsi trouver d et déchiffrer le message. Heureusement, si les nombres premier choisit font plusieurs centaine de chiffres de longueur il est quasiment impossible de retrouver les deux nombres premier choisit au départ. Ainsi nous voyons bien que une des plus grosse faille de RSA est d'être capable de factoriser un nombre en produit de facteur premier.
+
+\section{L'utilisation de l'algorithme de Shor pour détruire le système RSA}
+
+\subsection{Les failles de RSA et Shor}
+En 1994, Peter Shor a développé un algorithme capable de factoriser des nombres très rapidement à l'aide d'un ordinateur quantique. Cet algorithme, appelé l'algorithme de Shor, peut en théorie briser la sécurité de RSA en décomposant rapidement les grands nombres en leurs facteurs premiers, et ainsi récupérer la clé privée à partir de la clé publique.
+L'algorithme de Shor peut factoriser un nombre en produit de facteurs premiers en temps \(O(\log(N)^3)\). Cet algorithme est énormément plus rapide que le meilleur des algorithmes que nous possédons actuellement.
+
+\subsection{Les ordinateurs quantiques}
+Les ordinateurs quantiques sont basés sur des principes de la physique quantique. Contrairement aux ordinateurs classiques qui utilisent des bits pour représenter les données sous forme de 0 ou 1, les ordinateurs quantiques utilisent des qubits. Grâce à des phénomènes comme la superposition et l'intrication, les qubits peuvent représenter plusieurs états en même temps, ce qui permet aux ordinateurs quantiques de traiter des informations de manière exponentiellement plus rapide dans certains cas.
+
+Par exemple, un bit classique est comme une pièce qui peut être soit face (0) soit pile (1). Un qubit, en revanche, est comme une pièce qui tourne en l'air et peut être à la fois face et pile jusqu'à ce qu'on l'observe.
+
+Des entreprises comme IBM, Microsoft et Google et pleins d'autre entreprise investissent massivement dans le développement des ordinateurs quantiques. Bien que ces ordinateurs ne soient pas encore capables de casser RSA à grande échelle, IBM à déjà réussi, en 2001, à factoriser des petits nombres via l'algorithme de Shor comme \(15\) en \(3 \times 5\).
+
+\section{Comment s'en protéger}
+
+\subsection{Des systèmes post-quantiques déjà mis en place}
+Pour contrer cette menace, des chercheurs ont développé des algorithmes de cryptographie post-quantique, conçus pour être résistants aux attaques d'ordinateurs quantiques. Ces nouveaux algorithmes utilisent des problèmes mathématiques différents de ceux utilisés dans RSA, qui sont supposés être difficiles même pour les ordinateurs quantiques.
+
+Les gouvernements et les entreprises de haute technologie investissent dans la recherche et la mise en œuvre de ces nouvelles techniques. Par exemple, en décembre 2022, un premier télégramme post-quantique a été transmis entre les USA et la France, montrant les progrès réalisés dans ce domaine.
+
+Plusieurs initiatives internationales sont en cours pour développer et standardiser les algorithmes de cryptographie post-quantique. Par exemple, le National Institute of Standards and Technology (NIST) aux États-Unis mène un processus de standardisation pour identifier les algorithmes post-quantiques les plus prometteurs. 
+
+\section{Conclusion}
+En conclusion, même si les ordinateurs quantiques peuvent représenter une menace pour la cryptographie actuelle, les chercheurs et les gouvernements travaillent activement pour développer des solutions de cryptographie post-quantique afin de protéger nos données dans le futur. La technologie évolue rapidement, et il est crucial de rester informé et préparé face à ces nouveaux défis. 
+
+En plus des aspects techniques, il est également important de sensibiliser les utilisateurs et les entreprises sur les enjeux liés à la transition vers des systèmes post-quantiques. La cryptographie est un domaine dynamique et en constante évolution, et il est essentiel de suivre les développements pour garantir la sécurité de nos informations dans un monde de plus en plus connecté.
+
+\listoffigures
+
+\end{document}
