@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Les intégrales ?}{3}{}%
+\contentsline {subsubsection}{\numberline {1.1.1}Qu'est-ce qu'une intégrale ?}{3}{}%
+\contentsline {subsubsection}{\numberline {1.1.2}Comment calculer une intégrale ?}{4}{}%
+\contentsline {subsection}{\numberline {1.2}Pourquoi avoir besoin de calculer informatiquement une intégrale ?\\ Quels problèmes cela pose ?}{5}{}%
+\contentsline {section}{\numberline {2}Quels sont les méthodes de calcul numérique d'intégrales ?}{6}{}%
+\contentsline {subsection}{\numberline {2.1}Les méthodes faisant appel à des formes géométrique }{6}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Méthode des rectangles ou la somme de Riemman}{6}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Méthode des trapèzes}{8}{}%
+\contentsline {subsection}{\numberline {2.2}Les Méthodes plus compliqué}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Méthode de Monte-Carlo}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Méthode de Simpson}{9}{}%
+\contentsline {section}{\numberline {3}Conclusion}{11}{}%
