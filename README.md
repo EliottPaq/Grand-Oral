@@ -1,0 +1,3 @@
+Ces deux fichiers représentent mes deux sujet de Grand Oraux (épreuve d'oral de terminal). J'ai présenté le sujet sur l'optimisation du calcul intégral.
+
+La rédaction en Latex n'est évidemment pas nécessaire puisque je ne pouvais évidemment pas présenter ce travail cependant je trouvais que c'était un bon prétexte pour essayer de prendre en main ce langage. Pour mon niveau de l'époque je suis assez satisfait du résultat.
